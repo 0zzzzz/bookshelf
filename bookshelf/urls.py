@@ -7,6 +7,7 @@ from mainapp import views as mainapp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authapp.urls', namespace='auth')),
+    path('books/', include('bookapp.urls', namespace='books')),
     path('', mainapp.index, name='index'),
 ]
 

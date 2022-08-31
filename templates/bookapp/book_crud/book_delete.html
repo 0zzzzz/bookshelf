@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <br>
+    <br>
     <div class="del_block">
-        Уверены, что хотите удалить пользователя {{ user.name }}?
+        Уверены, что хотите удалить книгу?
         <form method="post">
             {% csrf_token %}
             <input type="submit" class="btn-block btn-danger col-lg-12" value="Да">
         </form>
-        <button onclick="document.location='{% url 'authapp:users_list' %}'" class="btn-block btn-success col-lg-12">
+        <button onclick="document.location='{% url 'index' %}'" class="btn-block btn-success col-lg-12">
             Отмена
         </button>
     </div>

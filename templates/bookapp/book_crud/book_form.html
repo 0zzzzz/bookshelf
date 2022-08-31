@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container post_form">
+    <h2>Твоя книга:</h2>
+    <div class="admin_block col-6">
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <br>
+            <input class="auth_button btn-block btn-primary col-4" type="submit" value="Загрузить книгу">
+        </form>
+    </div>
+</div>
+{% endblock %}
