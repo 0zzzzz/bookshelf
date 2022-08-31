@@ -176,12 +176,12 @@ html, body {
     opacity: 0.5;
 }
 
-.index_block_avatar {
+.index_book_img {
     height: 100%;
     margin-right: 10px;
     overflow: hidden;
-    /* width: 100%; */
     max-width: 150px;
+    min-width: 150px;
     border-radius: 10px
 }
 
@@ -529,12 +529,15 @@ table {
     margin: 10px 0 30px 0;
 }
 
-table tr th, table tr td {
-    background: #3B3B3B;
-    color: #FFF;
-    padding: 7px 4px;
-    text-align: left;
+.book_info {
+    width: 200px;
 }
+/*table tr th, table tr td {*/
+/*    background: #3B3B3B;*/
+/*    color: #FFF;*/
+/*    padding: 7px 4px;*/
+/*    text-align: left;*/
+/*}*/
 
 table tr td {
     background: #F0EFE2;

@@ -3,16 +3,17 @@
 {% load media_tags %}
 
 {% block content %}
-    <a class="nav-item nav-link navigation-links" href="{% url 'books:book_create' %}"><i class="fa fa-plus">
-
-    </i>Добавить книгу</a>
+    {% if user.is_authenticated %}
+        <a class="nav-item nav-link navigation-links" href="{% url 'books:book_create' %}"><i class="fa fa-plus"></i>
+            Добавить книгу</a>
+    {% endif %}
             {% for book in books %}
             <div class="container_box">
-                <img class="index_block_avatar" src="{{ book.avatar|media_for_users }}" alt="avatar"/>
-                {{ book.first_name }} {{ book.patronymic }} {{ book.last_name }}<br>
-                Аккаунт: {{ book }}<br>
-                Создан: {{ book.created_at }}<br>
-                Обновлен: {{ book.updated_at }}<br>
+                <img class="index_book_img" src="{{ book.image|media_for_books }}" alt="avatar"/>
+                <div class="book_info">
+                    Название: {{ book.name }}<br>
+                    Автор: {{ book.user }}
+                </div>
                 <a href="{% url 'books:book_read' book.id %}"
                    class="btn btn-outline-secondary me-2 col-4" style="padding-left: 0px;">читать</a>
                 <a href="{% url 'books:book_update' book.id %}"
