@@ -1,0 +1,16 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load media_tags %}
+
+{% block content %}
+            {% for user in users %}
+            <div class="container_box">
+                <img class="index_block_avatar" src="{{ user.avatar|media_for_users }}" alt="avatar"/>
+                {{ user.first_name }} {{ user.patronymic }} {{ user.last_name }}<br>
+                Аккаунт: {{ user }}<br>
+                Создан: {{ user.created_at }}<br>
+                Обновлен: {{ user.updated_at }}<br>
+                <br>
+            </div>
+        {% endfor %}
+{% endblock %}
