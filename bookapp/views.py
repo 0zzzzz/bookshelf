@@ -12,27 +12,12 @@ class BookDetailView(DetailView):
     model = Books
     template_name = 'bookapp/book_crud/book_view.html'
 
-
     def get_context_data(self, *args, **kwargs):
         book = Books.objects.get(pk=self.kwargs['pk'])
         context = super().get_context_data(**kwargs)
         context['book'] = book
         context['title'] = book.name
         return context
-
-
-
-    # def post(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         form = self.form_class(request.POST)
-    #         if form.is_valid():
-    #             comment = form.save(
-    #                 commit=False)
-    #             comment.user = request.user
-    #             comment.post = Books.objects.get(pk=self.kwargs['pk'])
-    #             comment.save()
-    #             # notify_comment(comment)
-    #             return HttpResponseRedirect(self.get_success_url())
 
 
 @method_decorator(login_required, name='dispatch')
@@ -50,8 +35,6 @@ class BookCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         """Автоматически делаем пользователя сессии автором книги"""
-        print(request.user)
-        print(f'11111111111111111111111111111')
         if request.user.is_authenticated:
             form = self.form_class(request.POST)
             if form.is_valid():
