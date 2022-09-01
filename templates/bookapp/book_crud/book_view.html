@@ -7,19 +7,22 @@
 {% endblock %}
 
 {% block content %}
+    {% if book.image %}
+        <img class="view_book_img_box" src="/media/{{ book.image }}" alt="book_img">
+    {% endif %}
     <div class="container text">
         <br>
+
         <div style="display: flex">
             {% if user.id == book.user.id or user.is_superuser %}
-                <a href="{% url 'books:book_update' book.id %}" class="btn btn-warning" >редактировать</a>
+                <a href="{% url 'books:book_update' book.id %}" class="btn btn-warning">редактировать</a>
                 <a href="{% url 'books:book_delete' book.id %}" class="btn btn-danger">удалить</a>
             {% endif %}
         </div>
+
         <h1>{{ book.name }}</h1>
         <p>{{ book.text|safe }}</p>
-        {% if book.image %}
-            <img src="/media/{{ book.image }}" class="card-img-top book_img" alt="img">
-        {% endif %}
+
         <div>
 
         </div>

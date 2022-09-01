@@ -12,10 +12,13 @@
     <div class="books_block">
         {% for book in books %}
             <div class="container_box">
-                <img class="index_book_img" src="{{ book.image|media_for_books }}" alt="book_img"/>
+                <div class="index_book_img_box">
+                    <img class="book_img" src="{{ book.image|media_for_books }}" alt="book_img"/>
+                </div>
+
                 <div class="book_info">
-                    Название: {{ book.name }}<br>
-                    Автор: {{ book.user }}
+                    <h3>{{ book.name }}</h3>
+                    Автор: {{ book.user.first_name }} {{ book.user.patronymic }} {{ book.user.last_name }}
                                     <div>
                     <a href="{% url 'books:book_read' book.id %}"
                        class="btn btn-success">читать</a>

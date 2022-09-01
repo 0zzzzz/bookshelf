@@ -104,12 +104,13 @@ class UserCreateView(SuperUserCheck, CreateView):
 
 class UserListView(SuperUserCheck, ListView):
     """Просмотр всех пользователей"""
+    context_object_name = "users"
     model = User
+    paginate_by = 6
     template_name = 'authapp/users_crud/users.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['object_list'] = User.objects.all().order_by('-is_active')
         context['title'] = 'Список пользователей'
         return context
 
@@ -139,18 +140,18 @@ class UserDeleteView(SuperUserCheck, DeleteView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Удаление пользователя'
         return context
-
+    
 
 class UserCreateAPIView(APIView):
     """API Создание пользователя"""
-
     def get(self, request):
         item = User.objects.all()
         serializer = UserSerializer(item, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data, many=True)
+        serializer = UserSerializer(data=request.data)
+        # serializer = UserSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

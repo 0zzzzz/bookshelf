@@ -15,7 +15,8 @@ urlpatterns = [
          name='user_update'),
     path('user/delete/<int:pk>/', authapp.UserDeleteView.as_view(),
          name='user_delete'),
-    # path('api/user_create/', authapp.UserCreateAPIView.as_view(), name='api_user_create'),
-    # path('api/user_update/<int:pk>/', authapp.UserUpdateAPIView.as_view(), name='api_user_update'),
+
+    path('api/user_create/', authapp.UserCreateAPIView.as_view(), name='api_user_create'),
+    path('api/user_update/<int:pk>/', authapp.UserUpdateAPIView.as_view(), name='api_user_update'),
 ]
 

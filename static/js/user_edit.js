@@ -1,23 +1,3 @@
-// const alertBox = document.getElementById('alert-box')
-const form = document.getElementById('reg-form')
-const avatarBox = document.getElementById('avatar-box')
-// const username = document.getElementById('id_username')
-// const name = document.getElementById('id_name')
-const avatar = document.getElementById('id_avatar')
-// const csrf = document.getElementsByName('csrfmiddlewaretoken')
-
-console.log(form)
-
-const url = ""
-
-avatar.addEventListener('change', ()=>{
-    const avatar_data = avatar.files[0]
-    const url = URL.createObjectURL(avatar_data)
-    console.log(url)
-    avatarBox.innerHTML = `<img src="${url}" width="100px">`
-})
-
-
 jQuery.validator.addMethod("noSpace", function(value, element) {
     return value == '' || value.trim().length != 0;
 }, "Не используйте пробелы и не оставляйте пустым");
@@ -30,9 +10,9 @@ return this.optional( element ) || /^\w+$/i.test( value );
 $.validator.addMethod( "fullName", function( value, element ) {
 return this.optional( element ) || /^[А-Яа-яA-Za-z]+$/i.test( value );
 }, "Используйте только буквы" );
-var $registrationForm = $('#reg-form');
-if($registrationForm.length){
-  $registrationForm.validate({
+var $editForm = $('#edit-form');
+if($editForm.length){
+  $editForm.validate({
       rules:{
           username: {
               required: true,
@@ -41,15 +21,6 @@ if($registrationForm.length){
           email: {
               required: true,
               customEmail: true
-          },
-          password1: {
-              // required: true
-              minlength: 8
-          },
-          password2: {
-              // required: true,
-              minlength: 8,
-              equalTo: '[name="password1"]'
           },
           first_name: {
               required: true,
@@ -71,15 +42,6 @@ if($registrationForm.length){
           email: {
               required: 'Введите email',
               email: 'Введите правильный email'
-          },
-          password1: {
-              required: 'Введите пароль',
-              minlength: 'Минимальная длинна пароля 8 символов'
-          },
-          password2: {
-              required: 'Введите пароль повторно',
-              equalTo: 'Пароли не совпадают',
-              minlength: 'Минимальная длинна пароля 8 символов'
           },
           first_name: {
               required: 'Введите имя'

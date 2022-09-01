@@ -172,7 +172,11 @@ body {
     opacity: 0.5;
 }
 
-.index_book_img {
+.book_img {
+    height: 100%;
+}
+
+.index_book_img_box {
     height: 100%;
     margin-right: 10px;
     overflow: hidden;
@@ -180,10 +184,15 @@ body {
     min-width: 150px;
     max-height: 150px;
     min-height: 150px;
-    border-radius: 10px
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+.view_book_img_box {
+    max-height: 200px;
 }
 
-.index_block_avatar {
+.block_avatar {
     height: 100%;
     margin-right: 10px;
     overflow: hidden;
@@ -347,7 +356,7 @@ ol li {
 
 #menubar {
     width: 898px;
-    height: 52px;
+    height: 48px;
     padding: 0;
     background: #000;
 }
@@ -537,7 +546,7 @@ table {
 }
 
 .book_info {
-    width: 190px;
+    width: 240px;
 }
 
 table tr td {

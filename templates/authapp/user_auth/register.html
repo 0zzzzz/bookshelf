@@ -9,7 +9,9 @@
 
 
 {% block content %}
-    <h2>Регистрация</h2>
+    <div class="h2 text-center head">
+        Регистрация
+    </div>
     <div id="avatar-box"></div>
     <form id="reg-form" class="form-horizontal" action="{% url 'auth:register' %}" name="frm"
           method="POST" enctype="multipart/form-data">
