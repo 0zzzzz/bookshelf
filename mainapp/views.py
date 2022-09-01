@@ -2,11 +2,10 @@ from django.views.generic import ListView
 from bookapp.models import Books
 
 
-
 class Index(ListView):
     """Главная страница"""
     context_object_name = "books"
-    paginate_by = 4
+    paginate_by = 6
     template_name = 'mainapp/index.html'
 
     def get_queryset(self):

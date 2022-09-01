@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
 {% load static %}
 {% load media_tags %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    <a href="{% url 'index' %}" class="edit_cross"></a>
     <div class="h2">
         Редактирование учетной записи
     </div>
     <form action="{% url 'auth:edit' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ edit_form.as_p }}
-        {{ edit_profile_form.as_p }}
+        {{ edit_form|crispy }}
         <img src="{{ user.avatar|media_for_users }}" alt="avatar"/>
         <input class="auth_button" type="submit" value="Cохранить">
     </form>

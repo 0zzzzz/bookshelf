@@ -2,9 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from bookapp.forms import BookForm
 from bookapp.models import Books
+from mainapp.mixins import BelongsToUserCheck
 
 
 class BookDetailView(DetailView):
@@ -44,8 +45,7 @@ class BookCreateView(CreateView):
                 return HttpResponseRedirect(reverse("index"))
 
 
-@method_decorator(login_required, name='dispatch')
-class BookUpdateView(UpdateView):
+class BookUpdateView(BelongsToUserCheck, UpdateView):
     """Редактирование книги"""
     model = Books
     template_name = 'bookapp/book_crud/book_form.html'
@@ -58,8 +58,7 @@ class BookUpdateView(UpdateView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
-class BookDeleteView(DeleteView):
+class BookDeleteView(BelongsToUserCheck, DeleteView):
     """Удаление книги"""
     model = Books
     template_name = 'bookapp/book_crud/book_delete.html'
@@ -71,4 +70,3 @@ class BookDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Удаление книги'
         return context
-

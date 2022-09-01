@@ -43,11 +43,13 @@ if($registrationForm.length){
               customEmail: true
           },
           password1: {
-              required: true
+              // required: true
+              minlength: 8
           },
           password2: {
-              required: true,
-              equalTo: '#password1'
+              // required: true,
+              minlength: 8,
+              equalTo: '[name="password1"]'
           },
           first_name: {
               required: true,
@@ -71,11 +73,13 @@ if($registrationForm.length){
               email: 'Введите правильный email'
           },
           password1: {
-              required: 'Введите пароль'
+              required: 'Введите пароль',
+              minlength: 'Минимальная длинна пароля 8 символов'
           },
           password2: {
               required: 'Введите пароль повторно',
-              equalTo: 'Пароли не совпадают'
+              equalTo: 'Пароли не совпадают',
+              minlength: 'Минимальная длинна пароля 8 символов'
           },
           first_name: {
               required: 'Введите имя'

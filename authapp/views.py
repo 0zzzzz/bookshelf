@@ -1,30 +1,25 @@
-import json
-
-from crispy_forms.utils import render_crispy_form
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.core.validators import validate_email
-from django.http import Http404, JsonResponse
+from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import View
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from authapp.forms import UserLoginForm, UserRegisterForm, UserEditForm
 from authapp.models import User
 from authapp.serializers import UserSerializer
-from django.views.generic import View
+from mainapp.mixins import SuperUserCheck, BelongsToUserCheck
 
 
-class AccessMixin:
-    """Делает view доступным только для суперпользователя"""
-
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+# class AccessMixin:
+#     """Делает view доступным только для суперпользователя"""
+#
+#     @method_decorator(user_passes_test(lambda u: u.is_superuser))
+#     def dispatch(self, request, *args, **kwargs):
+#         return super().dispatch(request, *args, **kwargs)
 
 
 class LoginView(View):
@@ -94,7 +89,7 @@ class EditView(View):
             return HttpResponseRedirect(reverse('auth:edit'))
 
 
-class UserCreateView(AccessMixin, CreateView):
+class UserCreateView(SuperUserCheck, CreateView):
     """Создание пользователя"""
     model = User
     template_name = 'authapp/users_crud/user_form.html'
@@ -107,7 +102,7 @@ class UserCreateView(AccessMixin, CreateView):
         return context
 
 
-class UserListView(AccessMixin, ListView):
+class UserListView(SuperUserCheck, ListView):
     """Просмотр всех пользователей"""
     model = User
     template_name = 'authapp/users_crud/users.html'
@@ -119,7 +114,7 @@ class UserListView(AccessMixin, ListView):
         return context
 
 
-class UserUpdateView(AccessMixin, UpdateView):
+class UserUpdateView(SuperUserCheck, UpdateView):
     """Изменение пользователя"""
     model = User
     template_name = 'authapp/users_crud/user_form.html'
@@ -132,7 +127,7 @@ class UserUpdateView(AccessMixin, UpdateView):
         return context
 
 
-class UserDeleteView(AccessMixin, DeleteView):
+class UserDeleteView(SuperUserCheck, DeleteView):
     """Удаление пользователя"""
     model = User
     template_name = 'authapp/users_crud/user_delete.html'

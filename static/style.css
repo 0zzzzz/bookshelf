@@ -39,6 +39,7 @@ body {
     width: 36px;
     height: 36px;
 }
+
 .edit_cross:hover {
     background-image: url(/static/img/edit_cross_bold.png);
 }
@@ -55,6 +56,7 @@ body {
     color: #555;
     width: 100%;
 }
+
 .auth_button:hover {
     color: #000;
 }
@@ -135,7 +137,7 @@ body {
     flex-direction: column;
 }
 
-.register_table{
+.register_table {
     display: flex;
     justify-content: center;
 }
@@ -176,6 +178,8 @@ body {
     overflow: hidden;
     max-width: 150px;
     min-width: 150px;
+    max-height: 150px;
+    min-height: 150px;
     border-radius: 10px
 }
 
@@ -188,14 +192,14 @@ body {
     border-radius: 10px
 }
 
-.user_edit_button{
+.user_edit_button {
     color: #555;
     text-decoration: none;
     border: 1px solid #eaeaea;
     border-radius: 25px;
 }
 
-.user_edit_button:hover{
+.user_edit_button:hover {
     color: #000;
 }
 
@@ -378,7 +382,7 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover {
 }
 
 #site_content {
-    width: 854px;
+    width: 880px;
     overflow: hidden;
     margin: 0 auto 0 auto;
     padding: 0 24px 20px 20px;
@@ -533,14 +537,8 @@ table {
 }
 
 .book_info {
-    width: 200px;
+    width: 190px;
 }
-/*table tr th, table tr td {*/
-/*    background: #3B3B3B;*/
-/*    color: #FFF;*/
-/*    padding: 7px 4px;*/
-/*    text-align: left;*/
-/*}*/
 
 table tr td {
     background: #F0EFE2;
@@ -562,4 +560,18 @@ table tr td {
 
 .add_button:hover {
     color: #3c3c3c;
+}
+
+.error {
+    color: #8c0000;
+}
+
+.books_block {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pagi_div {
+    display: flex;
+    justify-content: space-around;
 }
