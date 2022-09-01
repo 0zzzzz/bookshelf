@@ -1,42 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load media_tags %}
-{#{% load bootstrap3 %}#}
 
-{#{% block js %}#}
-{#    <script src="{% static 'js/likes.js' %}"></script>#}
-{#    <script src="{% static 'js/favorite.js' %}"></script>#}
-{#    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>#}
-{#    <script src="{% static 'js/likes.js' %}"></script>#}
-{#    <script src="{% static 'js/favorite.js' %}"></script>#}
-{#{% endblock %}#}
+{% block js %}
+
+{% endblock %}
 
 {% block content %}
+    {% if book.image %}
+        <img class="view_book_img_box" src="/media/{{ book.image }}" alt="book_img">
+    {% endif %}
     <div class="container text">
         <br>
+
         <div style="display: flex">
-            {{ time_footer }}
-{#        {{ title }}#}
-            <h1>{{ book.name }}</h1>
             {% if user.id == book.user.id or user.is_superuser %}
-                <a href="{% url 'books:book_update' book.id %}" class="" >редактировать</a>
-                <a href="{% url 'books:book_delete' book.id %}" class="">удалить</a>
+                <a href="{% url 'books:book_update' book.id %}" class="btn btn-warning">редактировать</a>
+                <a href="{% url 'books:book_delete' book.id %}" class="btn btn-danger">удалить</a>
             {% endif %}
         </div>
+
+        <h1>{{ book.name }}</h1>
         <p>{{ book.text|safe }}</p>
-        {% if book.image %}
-            <img src="/media/{{ book.image }}" class="card-img-top book_img" alt="img" onerror="this.style.opacity='0'">
-        {% endif %}
+
         <div>
 
         </div>
-{#        {% if user.is_authenticated %}#}
-{#            <form class="form-horizontal" method="post" enctype="multipart/form-data">#}
-{#                {% csrf_token %}#}
-{#                {{ form }}#}
-{#                <br>#}
-{#                <input type="submit" value="Опубликовать" class="auth_button btn-block btn-primary col-lg-12">#}
-{#            </form>#}
 
     </div>
 {% endblock %}

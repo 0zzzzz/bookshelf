@@ -1,17 +1,26 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container post_form">
     <h2>Твоя книга:</h2>
-    <div class="admin_block col-6">
+    <div id="img-box"></div>
+    <div class="admin_block">
         <form class="form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.media }}
-            {{ form.as_p }}
+            {{ form|crispy  }}
             <br>
-            <input class="auth_button btn-block btn-primary col-4" type="submit" value="Загрузить книгу">
+            <input class="auth_button" type="submit" value="Загрузить книгу">
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block js_bottom %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
+    <script src="{% static 'js/book_add.js' %}"></script>
 {% endblock %}

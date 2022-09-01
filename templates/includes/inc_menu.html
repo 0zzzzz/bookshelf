@@ -1,0 +1,26 @@
+<div class="admin_menu">
+    <ul>
+{#        {% if not 'index' in request.resolver_match.url_name %}#}
+        <li><a href="{% url 'index' %}"><i class="fa fa-th"></i>главная</a></li>
+{#        {% endif %}#}
+        {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                <li><a style="color:#ba1b1b" class="log_regedit"
+                   href="{% url 'auth:edit' %}"><i class="fa fa-user"></i>администратор:{{ user.username }}</a></li>
+                <li><a style="color:#ba1b1b" href="{% url 'auth:users_list' %}"><i class="fa fa-user-circle-o"></i>
+                    пользователи</a></li>
+            {% else %}
+                <li><a  class="log_regedit" href="{% url 'auth:edit' %}"><i class="fa fa-user"></i>
+                    редактировать: {{ user.first_name|default:'пользователь' }}</a></li>
+            {% endif %}
+            <li><a class="log_entexit" href="{% url 'auth:logout' %}"><i class="fa fa-sign-out"></i>
+                выйти</a></li>
+        {% else %}
+            <li><a class="log_entexit" href="{% url 'auth:login' %}"><i class="fa fa-sign-in"></i>
+                войти</a></li>
+            <li><a class="log_regedit" href="{% url 'auth:register' %}"><i class="fa fa-address-card-o"></i>
+                регистрация</a></li>
+        {% endif %}
+
+    </ul>
+</div>

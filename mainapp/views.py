@@ -1,12 +1,17 @@
-from django.shortcuts import render
-from authapp.models import User
+from django.views.generic import ListView
 from bookapp.models import Books
 
 
-def index(request):
+class Index(ListView):
     """Главная страница"""
-    context = {
-        'title': 'Главная',
-        'books': Books.objects.filter(),
-    }
-    return render(request, 'mainapp/index.html', context)
+    context_object_name = "books"
+    paginate_by = 6
+    template_name = 'mainapp/index.html'
+
+    def get_queryset(self):
+        return Books.objects.all().order_by('-created_at')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Главная'
+        return context

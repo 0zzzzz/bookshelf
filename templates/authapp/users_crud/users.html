@@ -3,21 +3,22 @@
 {% load media_tags %}
 
 {% block content %}
+    <a class="nav-item nav-link navigation-links add_button" href="{% url 'auth:user_create' %}"><i
+            class="fa fa-plus"></i>
+        Новый пользователь
+    </a>
     <div class="users_list">
-        <a class="useradd_button" href={% url 'auth:user_create' %}>
-            <span>новый пользователь</span>
-        </a>
-        {% for object in object_list %}
+        {% for user in users %}
             <div class="container_box
-                {% if not object.is_active %}
+                {% if not user.is_active %}
                     not_active
                 {% endif %}
-                {% if object.is_superuser %}
+                {% if user.is_superuser %}
                     admin_highlight
                 {% endif %}">
-                <img class="index_block_avatar" src="{{ object.avatar|media_for_users }}" alt="{{ object.username }}">
+                <img class="block_avatar" src="{{ user.avatar|media_for_users }}" alt="{{ user.username }}">
                 <div class="user_role">
-                    {% if object.is_superuser %}
+                    {% if user.is_superuser %}
                         <h4>
                             <span class="text-danger">администратор</span>
                         </h4>
@@ -27,14 +28,14 @@
                         </h4>
                     {% endif %}
                     <br>
-                    {{ object.username }}<br>
+                    {{ user.username }}<br>
                     <br>
-                    <a class="user_edit_button" href={% url 'authapp:user_update' object.pk %}>
+                    <a class="user_edit_button" href={% url 'authapp:user_update' user.pk %}>
                         редактировать
                     </a>
                     <br>
-                    <a class="user_edit_button" href={% url 'authapp:user_delete' object.pk %}>
-                        {% if object.is_active %}
+                    <a class="user_edit_button" href={% url 'authapp:user_delete' user.pk %}>
+                        {% if user.is_active %}
                             удалить
                         {% else %}
                             восстановить
@@ -43,5 +44,37 @@
                 </div>
             </div>
         {% endfor %}
+
+    </div>
+    <div class="pagi_div">
+        <nav>
+            {% if is_paginated %}
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">&laquo;</a>
+                        </li>
+                    {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                    <li class="page-item"><a class="page-link active">{{ i }}</a></li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %} {% endfor %} {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&raquo;</a>
+                    </li>
+                {% endif %}
+                </ul>
+            {% endif %}
+        </nav>
     </div>
 {% endblock %}

@@ -1,25 +1,25 @@
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import View
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from authapp.forms import UserLoginForm, UserRegisterForm, UserEditForm
 from authapp.models import User
 from authapp.serializers import UserSerializer
-from django.views.generic import View
+from mainapp.mixins import SuperUserCheck, BelongsToUserCheck
 
 
-class AccessMixin:
-    """Делает view доступным только для суперпользователя"""
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+# class AccessMixin:
+#     """Делает view доступным только для суперпользователя"""
+#
+#     @method_decorator(user_passes_test(lambda u: u.is_superuser))
+#     def dispatch(self, request, *args, **kwargs):
+#         return super().dispatch(request, *args, **kwargs)
 
 
 class LoginView(View):
@@ -48,6 +48,7 @@ class LoginView(View):
 
 class LogoutView(View):
     """View для логаута"""
+
     def get(self, request):
         auth.logout(request)
         return HttpResponseRedirect(reverse('index'))
@@ -88,7 +89,7 @@ class EditView(View):
             return HttpResponseRedirect(reverse('auth:edit'))
 
 
-class UserCreateView(AccessMixin, CreateView):
+class UserCreateView(SuperUserCheck, CreateView):
     """Создание пользователя"""
     model = User
     template_name = 'authapp/users_crud/user_form.html'
@@ -101,19 +102,20 @@ class UserCreateView(AccessMixin, CreateView):
         return context
 
 
-class UserListView(AccessMixin, ListView):
+class UserListView(SuperUserCheck, ListView):
     """Просмотр всех пользователей"""
+    context_object_name = "users"
     model = User
+    paginate_by = 6
     template_name = 'authapp/users_crud/users.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['object_list'] = User.objects.all().order_by('-is_active')
         context['title'] = 'Список пользователей'
         return context
 
 
-class UserUpdateView(AccessMixin, UpdateView):
+class UserUpdateView(SuperUserCheck, UpdateView):
     """Изменение пользователя"""
     model = User
     template_name = 'authapp/users_crud/user_form.html'
@@ -126,7 +128,7 @@ class UserUpdateView(AccessMixin, UpdateView):
         return context
 
 
-class UserDeleteView(AccessMixin, DeleteView):
+class UserDeleteView(SuperUserCheck, DeleteView):
     """Удаление пользователя"""
     model = User
     template_name = 'authapp/users_crud/user_delete.html'
@@ -138,18 +140,18 @@ class UserDeleteView(AccessMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Удаление пользователя'
         return context
-
+    
 
 class UserCreateAPIView(APIView):
     """API Создание пользователя"""
-
     def get(self, request):
         item = User.objects.all()
         serializer = UserSerializer(item, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data, many=True)
+        serializer = UserSerializer(data=request.data)
+        # serializer = UserSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
