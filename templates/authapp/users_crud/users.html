@@ -3,10 +3,10 @@
 {% load media_tags %}
 
 {% block content %}
-    <div class="users_list">
-        <a class="useradd_button" href={% url 'auth:user_create' %}>
-            <span>новый пользователь</span>
+        <a class="nav-item nav-link navigation-links add_button" href="{% url 'auth:user_create' %}"><i class="fa fa-plus"></i>
+            Новый пользователь
         </a>
+    <div class="users_list">
         {% for object in object_list %}
             <div class="container_box
                 {% if not object.is_active %}

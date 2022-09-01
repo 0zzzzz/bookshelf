@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-{#{% load staticfiles %}#}
+
 <html lang="ru-ru">
 <head>
     <meta charset="utf-8">
@@ -34,9 +34,6 @@
             <div id="logo">
                 <div id="logo_text">
                     <h1>bookshelf</h1>
-{#                    {% if current_user.is_authenticated %}#}
-{#                        <h2>Привет, {{ current_user.username }}!</h2>#}
-{#                    {% endif %}#}
                 </div>
             </div>
 
@@ -58,4 +55,8 @@
         </div>
     </div>
 </body>
+
+{% block js_bottom %}
+{% endblock %}
+
 </html>

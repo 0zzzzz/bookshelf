@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from bookapp import views as bookapp
-from .models import Books
 
 app_name = 'bookapp'
 

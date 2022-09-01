@@ -1,6 +1,10 @@
+import json
+
+from crispy_forms.utils import render_crispy_form
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import Http404
+from django.core.validators import validate_email
+from django.http import Http404, JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
@@ -17,6 +21,7 @@ from django.views.generic import View
 
 class AccessMixin:
     """Делает view доступным только для суперпользователя"""
+
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -48,6 +53,7 @@ class LoginView(View):
 
 class LogoutView(View):
     """View для логаута"""
+
     def get(self, request):
         auth.logout(request)
         return HttpResponseRedirect(reverse('index'))

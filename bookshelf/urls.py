@@ -9,6 +9,7 @@ urlpatterns = [
     path('auth/', include('authapp.urls', namespace='auth')),
     path('books/', include('bookapp.urls', namespace='books')),
     path('', mainapp.Index.as_view(), name='index'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
