@@ -448,7 +448,7 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover {
     width: 900px;
     font: normal 100% 'lucida sans unicode', arial, sans-serif;
     background: black;
-    height: 33px;
+    height: 60px;
     padding: 24px 0 5px 0;
     text-align: center;
     /*background: transparent;*/
