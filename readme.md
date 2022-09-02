@@ -16,7 +16,7 @@ ___
 
 ### тестовый jwt токен: Token 32b2f32da1cd965b88c5bdda03521c9dd9af35d8 
 
-http://localhost:8077/books/api/book_read/12/
+http://localhost:8077/books/api/books_create/
 * GET вывести все книги из базы 
 * POST добавить книгу
 
